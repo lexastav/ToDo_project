@@ -7,7 +7,7 @@ class TodoForm(ModelForm):
     """Своя собственная форма для списка дел"""
     class Meta:
         model = TodoList
-        fields = ['title', 'content', 'important']
+        fields = ['title', 'content', 'important', 'date_completed']
 
 
 

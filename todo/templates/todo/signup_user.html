@@ -3,20 +3,46 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
 </head>
 <body>
 {% block content %}
-<h1>Sign Up</h1>
-
-<h2>{{ error }}</h2>
-
-    <form method="POST">
-        {% csrf_token %}
-
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
+<title>Регистрация</title>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Регистрация</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+                    <small id="usernameHelp" class="form-text text-muted">
+                        Имя пользователя должно быть уникально, мы сообщим, если его уже кто-то использовал.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password1">Пароль</label>
+                    <input type="password" name="password1" class="form-control" id="password1">
+                </div>
+                <div class="form-group">
+                    <label for="password2">Подтверди пароль</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
+                </div>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                Уже есть учетная запись? <a href="{% url 'login_user' %}">Жми сюда!</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 </body>
 </html>

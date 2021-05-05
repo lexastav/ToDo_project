@@ -24,19 +24,15 @@ def signup_user(request):
                 return render(request, 'todo/signup_user.html',
                               {
                                   'form': UserCreationForm(),
-                                  'error': 'That username has already been taken. Please choose a new username.'
+                                  'error': 'Ууупс... Похоже это имя уже кто-то использует! Придумай другое.'
                               })
 
         else:
             return render(request, 'todo/signup_user.html',
-                          {'form': UserCreationForm(), 'error': 'Passwords did not match'})
-
-
-@login_required
-def logout_user(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('home')
+                          {
+                              'form': UserCreationForm(),
+                              'error': 'Ууупс... Похожи пароли не совпадают! Будь внимательнее!'
+                          })
 
 
 def home(request):
@@ -52,11 +48,18 @@ def login_user(request):
             return render(request, 'todo/login_user.html',
                           {
                             'form': AuthenticationForm(),
-                            'error': 'Username and password did not match'
+                            'error': 'Имя пользователя и пароль не совпадают'
                           })
         else:
             login(request, user)
             return redirect('current_todos')
+
+
+@login_required
+def logout_user(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
 
 
 @login_required
@@ -86,7 +89,7 @@ def create_todo(request):
             return render(request, 'todo/create_todo.html',
                           {
                               'form': TodoForm(),
-                              'error': 'Bad data passed in. Try again.'
+                              'error': 'Переданы неверные данные. Повтори попытку.'
                           })
 
 
@@ -107,7 +110,7 @@ def view_todo(request, todo_pk):
                           {
                               'todo': todo,
                               'form': form,
-                              'error': 'Bad info'
+                              'error': 'Плохая информация (('
                           })
 
 

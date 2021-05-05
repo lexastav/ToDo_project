@@ -3,37 +3,52 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>current</title>
+
 </head>
 <body>
 
 
 
 {% block content %}
+<title>Текущие задачи</title>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            {% if todos %}
+                <h1>Текущие задачи</h1>
+                <br>
 
-    <ul>
-
-    {% for todo in todos %}
-
-    <li>
-        <a href={% url 'view_todo'  todo.id %}>
-        {% if todo.important %}
-            <b>
+                 <h2>Задач в работе: {{ todos.count }}</h2>
+            {% else %}
+                           <h1>Текущие задачи</h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+        {% if todos %}
+            <div class="list-group">
+                {% for todo in todos %}
+                    <a href="{% url 'view_todo' todo.id %}"
+                       class="list-group-item list-group-item-action
+                       {% if todo.important %}
+                       list-group-item-warning
+                       {% endif %}">
+                        <big><b>{{ todo.title }}</b></big>
+                        {% if todo.content %}
+                        - {{ todo.content|truncatechars:30 }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center">
+                <h2>Похоже, у тебя нет задач! Добавляй новые.</h2>
+            <br>
+            <a role="button" class="btn btn-primary" href="{% url 'create_todo' %}">Новая задача</a>
+            </div>
         {% endif %}
-            {{ todo.title }}
-        {% if todo.important %}
-            </b>
-        {% endif %}
-
-        {% if todo.content %}
-            - {{ todo.content   }}
-        {% endif %}
-        </a>
-    </li>
-
-    {% endfor %}
-
-    </ul>
+        </div>
+    </div>
 
 {% endblock %}
 

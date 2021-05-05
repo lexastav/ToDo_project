@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 {% extends 'todo/base.html' %}
+{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>home</title>
+
 </head>
 <body>
 
 
 
 {% block content %}
-home
+<title>Органайзер</title>
+  <div class="row justify-content-center my-2">
+  <div class="col-2">
+    <img src="{% static 'todo/myphoto.png' %}" class="img-fluid">
+  </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+
+                 <h1>Это просто твой <b>Органайзер</b>! Дерзай!</h1>
+            <p>Жизнь полна всяких планов и задач, но в первую очередь, важно то,
+            <u>что</u> делаешь ты! Злой Самурай создал  <b><i>Органайзер</i></b>, что бы помочь тебе
+            ничего не забыть. Это просто <b><i>Органайзер</i></b>, он не собирает твои данные, не отправляет
+            их в какой-нибудь ЦРУ, ФСБ или Гугл. Не следит за тобой и не сообщает о твоих планах правительству.
+                Так что ты тут можешь записывать все, что захочешь!</p>
+        {% if user.is_authenticated %}
+            <a role="button" class="btn btn-primary btn-lg" href="{% url 'current_todos' %}">Продолжить</a>
+        {% else %}
+            <a role="button" class="btn btn-primary btn-lg" href="{% url 'login_user' %}">Начать</a>
+        {% endif %}
+        </div>
+    </div>
+
+
 {% endblock %}
 
 </body>
